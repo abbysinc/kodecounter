@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Contador Regresivo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <style>
+    /* RESET */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    /* FONDO (AQUÍ PONÉS EL TUYO) */
+    body {
+      width: 100vw;
+      height: 100vh;
+
+      /* EJEMPLO DE FONDO, CAMBIALO */
+      /* background-image: url("fondo.jpg"); */
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      font-family: 'Courier New', monospace;
+    }
+
+    /* CONTENEDOR */
+    .contador-wrapper {
+      text-align: center;
+    }
+
+    /* CONTADOR */
+    #contador {
+      background: black;
+      color: red;
+      font-size: 6.5rem;
+      padding: 30px 60px;
+      border-radius: 15px;
+      letter-spacing: 6px;
+      box-shadow: 0 0 35px red;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="contador-wrapper">
+    <div id="contador">00:00:00</div>
+  </div>
+
+  <script>
+    // FECHA OBJETIVO: 5 DE FEBRERO 2026 A LAS 00:00:00
+    const fechaObjetivo = new Date("2026-02-05T00:00:00").getTime();
+
+    function actualizarContador() {
+      const ahora = new Date().getTime();
+      let diferencia = fechaObjetivo - ahora;
+
+      if (diferencia <= 0) {
+        document.getElementById("contador").textContent = "00:00:00";
+        return;
+      }
+
+      const horas = Math.floor(diferencia / (1000 * 60 * 60));
+      const minutos = Math.floor((diferencia / (1000 * 60)) % 60);
+      const segundos = Math.floor((diferencia / 1000) % 60);
+
+      document.getElementById("contador").textContent =
+        `${String(horas).padStart(2, '0')}:` +
+        `${String(minutos).padStart(2, '0')}:` +
+        `${String(segundos).padStart(2, '0')}`;
+    }
+
+    setInterval(actualizarContador, 1000);
+    actualizarContador();
+  </script>
+
+</body>
+</html>
